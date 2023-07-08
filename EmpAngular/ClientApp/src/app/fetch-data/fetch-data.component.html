@@ -1,24 +1,24 @@
-<h1 id="tableLabel">Weather forecast</h1>
+<h1 id="tableLabel">Employees list</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
+<p *ngIf="!employees"><em>Loading...</em></p>
+<button class="btn btn-primary" *ngIf="employees" (click)="addEmployee()" >Add Employee</button>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employees">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th>Name</th>
+      <th>Emp Type</th>
+      <th>Vac Accumulates</th>
+      <th>Work Days</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let emp of employees" style="cursor:pointer;">
+      <td (click)="editEmployee(emp)">{{ emp.name }}</td>
+      <td>{{ emp.employeeType }}</td>
+      <td>{{ emp.vacAccumalate }}</td>
+      <td>{{ emp.workDays }}</td>
     </tr>
   </tbody>
 </table>

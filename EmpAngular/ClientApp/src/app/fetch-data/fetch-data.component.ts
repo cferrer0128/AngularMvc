@@ -1,23 +1,38 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject , OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Employees } from '../IEmployee';
+import { Myservice } from '../myservice';
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
-export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+export class FetchDataComponent implements OnInit {
+  public employees: Employees[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'Employee').subscribe(result => {
-      this.forecasts = result;
+  public addEmployee() {
+    
+  }
+  public editEmployee(emp) {
+
+    console.log(`${emp}`);
+    this.router.navigate([`employee/${emp.id}`]);
+
+  }
+
+  constructor(private myservice: Myservice , private router: Router,http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<Employees[]>(baseUrl + 'Employee').subscribe(result => {
+      this.employees = result;
+      this.myservice.changeDataSource(this.employees);
     }, error => console.error(error));
   }
+    ngOnInit(): void {
+      this.myservice.currentSource.subscribe(emp => {
+        this.employees = emp;
+        console.log(`Data Cahnged on fetch ${emp}`);
+
+      });
+    }
 }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}

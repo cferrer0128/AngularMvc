@@ -7,8 +7,9 @@ namespace EmpAngular
 {
     public class Employees:IEmployees
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public EmpType EmpType { get; set; }
+        public string EmployeeType { get; set; }
         public int VacAccumalate { get; set; }
         public int WorkDays { get; set; }
         public float TakeVacation(float days)
@@ -20,17 +21,14 @@ namespace EmpAngular
         {
             return WorkDays + days;
         }
-    }
 
-    public class EmpType
-    {
-        public enum Type : int
+        public enum EmpType
         {
-          
             Hourly,
             Salaried,
             Managers
-
         }
     }
+
+    
 }
