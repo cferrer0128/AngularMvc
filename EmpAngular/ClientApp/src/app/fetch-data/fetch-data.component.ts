@@ -10,6 +10,8 @@ import { Myservice } from '../myservice';
 })
 export class FetchDataComponent implements OnInit {
   public employees: Employees[];
+  localURL: string;
+  localHttp: HttpClient;
 
   public addEmployee() {
     
@@ -22,10 +24,8 @@ export class FetchDataComponent implements OnInit {
   }
 
   constructor(private myservice: Myservice , private router: Router,http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Employees[]>(baseUrl + 'Employee').subscribe(result => {
-      this.employees = result;
-      this.myservice.changeDataSource(this.employees);
-    }, error => console.error(error));
+    this.localURL = baseUrl;
+    this.localHttp = http;
   }
     ngOnInit(): void {
       this.myservice.currentSource.subscribe(emp => {
@@ -33,6 +33,12 @@ export class FetchDataComponent implements OnInit {
         console.log(`Data Cahnged on fetch ${emp}`);
 
       });
+
+      if (this.employees.length<=0)
+        this.localHttp.get<Employees[]>(this.localURL + 'Employee').subscribe(result => {
+          this.employees = result;
+          this.myservice.changeDataSource(this.employees);
+        }, error => console.error(error));
     }
 }
 

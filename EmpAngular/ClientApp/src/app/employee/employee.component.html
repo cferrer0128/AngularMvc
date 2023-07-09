@@ -1,6 +1,6 @@
 <h2>Employee Detail</h2>
 
-<form [formGroup]="heroForm" novalidate>
+<form [formGroup]="empForm" novalidate>
   <div class="form-group">
     <label class="center-block">
       Name:
@@ -11,22 +11,9 @@
   <div class="form-group">
     <label class="center-block">
       Accumulate:
-      <div class="input-group">
-
-        <span class="input-group-btn">
-          <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-            <span class="glyphicon glyphicon-minus"></span>
-          </button>
-        </span>
-        <input class="form-control" maxlength="3" formControlName="vacAccumulate" style="margin-left: 15px">
-        <span class="input-group-btn">
-          <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-            <span class="glyphicon glyphicon-plus"></span>
-          </button>
-        </span>
-      </div>
-
-
+     
+        <input class="form-control" maxlength="3" readonly formControlName="vacAccumulate">
+   
     </label>
 
   </div>
@@ -43,24 +30,40 @@
       <div class="input-group">
 
         <span class="input-group-btn">
-          <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+          <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="" (click)="doWorkDays('minus')">
             <span class="glyphicon glyphicon-minus"></span>
           </button>
         </span>
         <input class="form-control" maxlength="3" formControlName="workDays" style="margin-left: 15px">
         <span class="input-group-btn">
-          <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+          <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="" (click)="doWorkDays('plus')">
             <span class="glyphicon glyphicon-plus"></span>
           </button>
         </span>
       </div>
 
+    </label>
+    <label class="center-block">
+      Vacation Days:
+      <div class="input-group">
 
+        <span class="input-group-btn">
+          <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="" (click)="doVacDays('minus')">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+        </span>
+        <input class="form-control" maxlength="2" formControlName="vacDays" style="margin-left: 15px">
+        <span class="input-group-btn">
+          <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="" (click)="doVacDays('plus')">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+        </span>
+      </div>
 
     </label>
+    
 
   </div>
-  <p>Form value: {{ heroForm.value | json }}</p>
-  <p>Form status: {{ heroForm.status | json }}</p>
-  <button class="btn btn-primary" *ngIf="heroForm.status" (click)="doSave()">Save Employee</button>
+  
+  <button class="btn btn-primary" *ngIf="empForm.valid" (click)="doSave()">Save Employee</button>
 </form>

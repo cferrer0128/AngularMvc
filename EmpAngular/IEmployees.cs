@@ -7,7 +7,7 @@ namespace EmpAngular
 {
     public interface IEmployees
     {
-        public int Work(int days);
+        public int Work(int days, int top);
         public float TakeVacation(float days);
 
     }

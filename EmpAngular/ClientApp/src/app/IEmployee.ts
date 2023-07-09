@@ -2,6 +2,8 @@ export  interface Employees {
   id: number;
   name: string;
   employeeType: string;
-  vacAccumalate: number;
+  vacAccumulate: number;
   workDays: number;
+  modified: boolean;
+  vacDays: number;
 }

@@ -10,18 +10,20 @@ namespace EmpAngular
         public int Id { get; set; }
         public string Name { get; set; }
         public string EmployeeType { get; set; }
-        public int VacAccumalate { get; set; }
+        public int VacAccumulate { get; set; }
         public int WorkDays { get; set; }
-        public float TakeVacation(float days)
+        public  float TakeVacation(float days)
         {
-            return VacAccumalate - days;
+            var total = VacAccumulate - days;
+            return total<0?0:total;
         }
-
-        public int Work(int days)
+        public bool Modified { get; set; }
+        public int Work(int days , int top)
         {
-            return WorkDays + days;
+            WorkDays = days;
+            return WorkDays > top ? top : WorkDays;
         }
-
+        public int VacDays { get; set; }
         public enum EmpType
         {
             Hourly,
